@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "bbc-fetch"
+version = "0.0.1"
+description = ""
+authors = ["Max Lapan <max.lapan@gmail.com>"]
+readme = "README.md"
+packages = [{include = "bbc_fetch"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.scripts]
+bbc-fetch = "bbc_fetch.__main__:main"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
