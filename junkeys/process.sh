@@ -3,13 +3,14 @@
 
 SRC=target
 INT=10
-logfile=log.csv
+logfile=result/log.csv
 TGT=result
 
 [ -f $logfile ] || echo "date,time,level,file" > $logfile
 
 while true; do
   for f in `find $SRC -type f | sort`; do
+    date
     echo Processing $f
     lev=$(sox $f -n stats 2>&1 | grep 'Pk lev' | sed 's/  */ /g' | cut -d ' ' -f 4 | sed 's/-//g')
     echo Level $lev
