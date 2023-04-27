@@ -21,6 +21,7 @@ while true; do
     echo "$ts,$n_date,$n_time,-$lev,$t_name" >> $logfile
     ./record_noise.sh $ts -$lev
     ./make_charts.sh $n_date
+    ./make_charts.sh $(date -d "$n_date -1 days" +"%Y-%m-%d")
     mkdir -p $TGT/$n_date
     echo "Compressing into $t_name"
     ffmpeg -v error -y -i file:$f $TGT/$t_name && rm $f
