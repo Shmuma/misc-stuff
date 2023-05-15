@@ -17,14 +17,16 @@ while true; do
     ts=$(date -d "$name" +%s)
     n_date=$(echo $name | cut -d 'T' -f 1)
     n_time=$(echo $name | cut -d 'T' -f 2)
-    t_name=$(echo $n_date/$n_date-`echo $n_time | sed 's/:/_/g'`-$lev.mp3)
-    echo "$ts,$n_date,$n_time,-$lev,$t_name" >> $logfile
+    t_name=$(echo $n_date-`echo $n_time | sed 's/:/_/g'`-$lev.mp3)
+    echo "$ts,$n_date,$n_time,-$lev,$n_date/$t_name" >> $logfile
+    ./put_file.sh $logfile $TGT log.csv
     ./record_noise.sh $ts -$lev
     ./make_charts.sh $n_date
     ./make_charts.sh $(date -d "$n_date -1 days" +"%Y-%m-%d")
     mkdir -p $TGT/$n_date
     echo "Compressing into $t_name"
-    ffmpeg -v error -y -i file:$f $TGT/$t_name && rm $f
+    ffmpeg -v error -y -i file:$f $TGT/$n_date/$t_name && rm $f
+    ./put_file.sh $TGT/$n_date/$t_name $TGT/$n_date $t_name
     echo "`date -Iseconds`: done"
   done
   sleep $INT

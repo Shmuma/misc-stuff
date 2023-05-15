@@ -21,3 +21,5 @@ rrdtool graph $res_dir/$1.png --imgformat PNG \
 	DEF:avg=$RRD:noise:AVERAGE \
 	LINE1:avg#0000FF:"avg, dB" \
 	VRULE:$t1#FF0000 VRULE:$t2#FF0000
+
+./put_file.sh $res_dir/$1.png $res_dir $1.png
